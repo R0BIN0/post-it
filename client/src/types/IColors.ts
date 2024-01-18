@@ -1,0 +1,10 @@
+export enum IColors {
+  ORANGE = "#D49D0D",
+  LIGHT_GREEN = "#C4C800",
+  GREEN = "#06C019",
+  BLUE_GREEN = "#00C6AE",
+  LIGHT_BLUE = "#34C7E8",
+  OCEAN_BLUE = "#0E8BFE",
+  LIGHT_VIOLET = "#8E34E8",
+  BLACK = "#11203D",
+}
