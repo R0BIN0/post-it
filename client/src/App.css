@@ -158,4 +158,5 @@ input::placeholder {
 body {
   line-height: 1;
   font-family: "Onest", sans-serif;
+  background-color: #f1f1f1;
 }
