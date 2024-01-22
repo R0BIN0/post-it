@@ -1,0 +1,72 @@
+.task-container {
+  width: max-content;
+  border-radius: 5px;
+  height: max-content;
+  max-width: 100%;
+  break-inside: avoid;
+  margin-bottom: 1rem;
+}
+
+.task-top-container {
+  width: 100%;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-top-container p {
+  font-size: 1.1rem;
+  color: white;
+  font-weight: 600;
+}
+
+.task-buttons-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.task-button {
+  width: 25px;
+  height: 25px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.task-button svg {
+  width: 12.5px;
+  height: 12.5px;
+}
+
+.task-button svg path {
+}
+
+.task-button-edit {
+  margin-right: 0.5rem;
+  border: 1px solid white;
+}
+
+.task-button-edit:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.task-button-delete {
+  border: 1px solid #d83030;
+}
+
+.task-button-delete:hover {
+  background: rgba(216, 48, 48, 0.4);
+}
+
+.task-content-container {
+  padding: 1.5rem 1rem;
+}
+
+.task-content-container p {
+  font-size: 0.85rem;
+  max-width: 500px;
+  line-height: 1.5;
+}
