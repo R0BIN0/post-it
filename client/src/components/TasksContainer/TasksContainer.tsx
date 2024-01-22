@@ -1,5 +1,7 @@
+import "./TaskContainer.css";
+
 const TasksContainer = () => {
-  return <div>TasksContainer</div>;
+  return <div className="taskContainer-container"></div>;
 };
 
 export default TasksContainer;
