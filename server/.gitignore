@@ -230,3 +230,16 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+
+*.appsettings.Development.json
+*.appsettings.json
+
+.vscode
+
+appsettings.Development.json
+appsettings.json
+.env
+.env.development
+.env.development.local
+
+
