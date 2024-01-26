@@ -1,11 +1,14 @@
+import { memo } from "react";
 import "./Button.css";
 
-const Button = (props: { title: string; onClick: () => void }) => {
+type HTMLButtonType = "submit" | "reset" | "button" | undefined;
+
+const Button = memo((props: { title: string; type: HTMLButtonType; onClick?: () => void }) => {
   return (
-    <button className="button-content" onClick={props.onClick}>
+    <button type={props.type} className="button-content" onClick={props.onClick}>
       {props.title}
     </button>
   );
-};
+});
 
 export default Button;

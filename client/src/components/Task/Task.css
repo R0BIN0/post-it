@@ -2,9 +2,9 @@
   width: max-content;
   border-radius: 5px;
   height: max-content;
-  max-width: 100%;
   break-inside: avoid;
   margin-bottom: 1rem;
+  width: 100%;
 }
 
 .task-top-container {
@@ -41,16 +41,13 @@
   height: 12.5px;
 }
 
-.task-button svg path {
-}
-
 .task-button-edit {
   margin-right: 0.5rem;
   border: 1px solid white;
 }
 
 .task-button-edit:hover {
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .task-button-delete {
@@ -58,7 +55,7 @@
 }
 
 .task-button-delete:hover {
-  background: rgba(216, 48, 48, 0.4);
+  background: rgba(216, 48, 48, 0.2);
 }
 
 .task-content-container {
