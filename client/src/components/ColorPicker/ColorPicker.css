@@ -1,0 +1,22 @@
+.colorPicker-box-container {
+  width: 100%;
+  display: flex;
+}
+
+.colorPicker-color-box {
+  width: 30px;
+  height: 30px;
+  margin-right: 0.5rem;
+  border-radius: 5px;
+  transition: 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.colorPicker-color-box:hover {
+  transform: translateY(-2px);
+  filter: contrast(1.25);
+}
+
+.colorPicker-color-box:active {
+  transform: translateY(0px);
+  filter: grayscale(10%);
+}

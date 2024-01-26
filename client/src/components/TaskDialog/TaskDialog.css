@@ -1,0 +1,16 @@
+.taskDialog-content {
+  padding: 1rem 2rem;
+}
+
+.taskDialog-footer {
+  margin-top: 2rem;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.taskDialog-footer-btns-container {
+  width: 160px;
+  display: flex;
+  justify-content: space-between;
+}

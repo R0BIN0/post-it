@@ -1,3 +1,4 @@
+import Task from "../Task/Task";
 import "./TaskContainer.css";
 import { useTaskContainer } from "./TaskContainer.logic";
 
@@ -6,7 +7,9 @@ const TasksContainer = () => {
 
   return (
     <div className="taskContainer-container">
-      <button onClick={logic.handleSubmit}>add task</button>
+      {logic.tasks.map((t) => (
+        <Task key={t.id} {...t} />
+      ))}
     </div>
   );
 };

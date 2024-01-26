@@ -10,9 +10,9 @@ export const getAllTasksAction = async (): Promise<ITask[]> => {
   return z.array(taskSchema).parse(res.data);
 };
 
-export const createTaskAction = async (params: { task: ITaskDTO }): Promise<ITask> => {
-  const res = await axios.post(`${LOCAL_ROUTE}/Tasks`, params.task);
-  return taskSchema.parse(res.data);
+export const createTaskAction = async (params: ITaskDTO): Promise<ITask> => {
+  const res = await axios.post(`${LOCAL_ROUTE}/Tasks`, params);
+  return res.data;
 };
 
 export const getAllTasks = tryCatch(getAllTasksAction);

@@ -1,6 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
+import dialogReducer from "./reducers/dialogReducer";
 
-const rootReducer = {};
+const rootReducer = {
+  dialog: dialogReducer,
+};
 
 export const initStore = () => {
   return configureStore({

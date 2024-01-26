@@ -4,7 +4,7 @@ import { IColors } from "../types/IColors";
 
 export const taskSchema = z.object({
   id: z.string(),
-  title: z.string().max(20, { message: "Le titre est trop long." }).min(1, { message: "Le titre est trop court." }),
+  title: z.string().max(20, { message: "Le titre est trop long" }).min(1, { message: "Ce champs est requis" }),
   description: z.string().optional(),
-  color: colorSchema.default(IColors.BLACK),
+  color: colorSchema.default(IColors.ORANGE),
 });

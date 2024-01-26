@@ -8,8 +8,8 @@ const TaskNav = memo(() => {
 
   return (
     <div className="taskNav-container">
-      <p className="taskNav-number">Nombre de Tâches 1</p>
-      <Button title={"Créer une tâche"} onClick={logic.handleCreateTask} />
+      <p className="taskNav-number">Nombre de Tâches {logic.tasks.length}</p>
+      <Button type="button" title={"Créer une tâche"} onClick={logic.handleCreateTask} />
     </div>
   );
 });
