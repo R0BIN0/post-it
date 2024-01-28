@@ -15,5 +15,11 @@ export const createTaskAction = async (params: ITaskDTO): Promise<ITask> => {
   return res.data;
 };
 
+export const editTaskAction = async (params: ITask): Promise<void> => {
+  const res = await axios.put(`${LOCAL_ROUTE}/Tasks/${params.id}`, params);
+  return res.data;
+};
+
 export const getAllTasks = tryCatch(getAllTasksAction);
 export const createTask = tryCatch(createTaskAction);
+export const editTask = tryCatch(editTaskAction);

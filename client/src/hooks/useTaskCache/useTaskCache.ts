@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "react-query";
-import { createTask, getAllTasks } from "../../apis/taskActions/taskActions";
+import { createTask, editTask, getAllTasks } from "../../apis/taskActions/taskActions";
 import { IQueryKey } from "../../types/IQueryKey";
 import { ITask } from "../../types/ITask";
 import { queryOptions } from "../../utils/queryOptions";
@@ -21,5 +21,15 @@ export const useTaskCache = () => {
     },
   });
 
-  return { queryTask, createTaskMutation };
+  const editTaskMutation = useMutation(editTask, {
+    onSuccess: (_: undefined, variable: ITask) => {
+      queryClient.setQueryData([IQueryKey.TASK], (oldData: ITask[] | undefined) => {
+        if (!oldData) return [];
+        const newData = oldData.map((item) => (item.id === variable.id ? { ...item, ...variable } : item));
+        return newData;
+      });
+    },
+  });
+
+  return { queryTask, createTaskMutation, editTaskMutation };
 };

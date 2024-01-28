@@ -4,14 +4,16 @@ import { ITaskDTO } from "../../types/ITask";
 import { IColors } from "../../types/IColors";
 import { taskSchema } from "../../schemas/Task.schema";
 import { useCallback } from "react";
-import { useDispatch } from "react-redux";
-import { IAppDispatch } from "../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { IAppDispatch, IRootState } from "../../redux/store";
 import { closeDialog } from "../../redux/reducers/dialogReducer";
 import { useTaskCache } from "../../hooks/useTaskCache/useTaskCache";
 
 export const useTaskDialog = () => {
   const dispatchCtx = useDispatch<IAppDispatch>();
-  const { createTaskMutation } = useTaskCache();
+  const { data: editTask } = useSelector((s: IRootState) => s.dialog);
+
+  const { createTaskMutation, editTaskMutation } = useTaskCache();
 
   const {
     control,
@@ -22,18 +24,22 @@ export const useTaskDialog = () => {
     resolver: zodResolver(taskSchema.omit({ id: true })),
     mode: "onSubmit",
     defaultValues: {
-      title: "",
-      description: "",
-      color: IColors.ORANGE,
+      title: editTask?.title ?? "",
+      description: editTask?.description ?? "",
+      color: editTask?.color ?? IColors.ORANGE,
     },
   });
 
   const handleClose = useCallback(() => dispatchCtx(closeDialog()), []);
 
   const onSubmit: SubmitHandler<ITaskDTO> = useCallback((data) => {
-    createTaskMutation.mutate(data);
+    if (editTask?.id) {
+      editTaskMutation.mutate({ ...data, id: editTask.id });
+    } else {
+      createTaskMutation.mutate(data);
+    }
     handleClose();
   }, []);
 
-  return { control, errors, register, handleSubmit, handleClose, onSubmit };
+  return { control, errors, register, handleSubmit, handleClose, onSubmit, isEditing: !!editTask?.id };
 };
