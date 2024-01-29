@@ -16,7 +16,7 @@ const Task = memo((props: ITask) => {
           <button className="task-button task-button-edit" onClick={logic.handleEdit}>
             <Edit />
           </button>
-          <button className="task-button task-button-delete">
+          <button className="task-button task-button-delete" onClick={logic.handleDelete}>
             <Delete />
           </button>
         </div>
