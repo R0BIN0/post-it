@@ -1,0 +1,81 @@
+.banner-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  margin-top: 3.5rem;
+}
+
+.banner-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+  height: 50px;
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.banner-box[data-is-success~="true"] {
+  background-color: #47e08d;
+}
+
+.banner-box[data-is-success~="false"] {
+  border: 1px solid red;
+  background-color: rgb(255, 230, 230);
+}
+
+.banner-box .banner-left p {
+  font-size: 0.9rem;
+}
+
+.banner-box[data-is-success~="true"] .banner-left p {
+  color: #ffffff;
+}
+
+.banner-box[data-is-success~="false"] .banner-left p {
+  color: red;
+}
+
+.banner-right {
+  display: flex;
+  align-items: center;
+}
+
+.banner-right button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.25rem;
+  border-radius: 50%;
+  border: 1px solid red;
+}
+
+.banner-box[data-is-success~="true"] .banner-right button {
+  border: 1px solid #ffffff;
+}
+
+.banner-box[data-is-success~="false"] .banner-right button {
+  border: 1px solid red;
+}
+
+.banner-right svg {
+  width: 7px;
+  height: 7px;
+}
+
+.banner-box[data-is-success~="true"] .banner-right svg path {
+  stroke: #ffffff;
+}
+
+.banner-box[data-is-success~="false"] .banner-right svg path {
+  stroke: red;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

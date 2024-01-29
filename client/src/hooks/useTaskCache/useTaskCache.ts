@@ -4,11 +4,23 @@ import { IQueryKey } from "../../types/IQueryKey";
 import { ITask } from "../../types/ITask";
 import { queryOptions } from "../../utils/queryOptions";
 import { queryClient } from "../../main";
+import { useDispatch } from "react-redux";
+import { IAppDispatch } from "../../redux/store";
+import { setBanner } from "../../redux/reducers/bannerReducer";
+import { catchError } from "../../utils/tryCatch";
+import { useCallback } from "react";
 
 export const useTaskCache = () => {
+  const dispatchCtx = useDispatch<IAppDispatch>();
+
+  const onError = useCallback((err: unknown) => {
+    dispatchCtx(setBanner({ txt: catchError(err), success: false }));
+  }, []);
+
   const queryTask = useQuery<ITask[]>([IQueryKey.TASK], getAllTasks, {
     ...queryOptions,
     staleTime: Infinity,
+    onError,
   });
 
   const createTaskMutation = useMutation(createTask, {
@@ -18,7 +30,9 @@ export const useTaskCache = () => {
         const newData = [...oldData, res];
         return newData;
       });
+      dispatchCtx(setBanner({ txt: "Votre tâche a été correctement créée", success: true }));
     },
+    onError,
   });
 
   const editTaskMutation = useMutation(editTask, {
@@ -28,7 +42,9 @@ export const useTaskCache = () => {
         const newData = oldData.map((item) => (item.id === variable.id ? { ...item, ...variable } : item));
         return newData;
       });
+      dispatchCtx(setBanner({ txt: "Votre tâche a bien été mise à jour", success: true }));
     },
+    onError,
   });
 
   const deleteTaskMutation = useMutation(deleteTask, {
@@ -38,7 +54,9 @@ export const useTaskCache = () => {
         const newData = oldData.filter((item) => item.id !== variable);
         return newData;
       });
+      dispatchCtx(setBanner({ txt: "Votre tâche a été correctement supprimée", success: true }));
     },
+    onError,
   });
 
   return { queryTask, createTaskMutation, editTaskMutation, deleteTaskMutation };
