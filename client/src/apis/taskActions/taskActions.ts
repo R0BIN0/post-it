@@ -16,10 +16,14 @@ export const createTaskAction = async (params: ITaskDTO): Promise<ITask> => {
 };
 
 export const editTaskAction = async (params: ITask): Promise<void> => {
-  const res = await axios.put(`${LOCAL_ROUTE}/Tasks/${params.id}`, params);
-  return res.data;
+  await axios.put(`${LOCAL_ROUTE}/Tasks/${params.id}`, params);
+};
+
+export const deleteTaskAction = async (id: string): Promise<void> => {
+  await axios.delete(`${LOCAL_ROUTE}/Tasks/${id}`);
 };
 
 export const getAllTasks = tryCatch(getAllTasksAction);
 export const createTask = tryCatch(createTaskAction);
 export const editTask = tryCatch(editTaskAction);
+export const deleteTask = tryCatch(deleteTaskAction);

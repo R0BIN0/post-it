@@ -52,5 +52,40 @@ namespace TaskApi.Controllers
             await _context.Tasks.InsertOneAsync(taskItem);
             return CreatedAtAction(nameof(GetTask), new { id = taskItem.Id }, taskItem);
         }
+
+        [HttpPut("{id}")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(void), StatusCodes.Status403Forbidden)]
+        public async Task<IActionResult> UpdateTaskAsync([FromRoute] string id, [FromBody] TaskItem task)
+        {
+            var filter = Builders<TaskItem>.Filter.Eq(t => t.Id, id);
+            var update = Builders<TaskItem>.Update
+                .Set(t => t.Title, task.Title)
+                .Set(t => t.Description, task.Description)
+                .Set(t => t.Color, task.Color);
+
+            var result = await _context.Tasks.UpdateOneAsync(filter, update);
+
+            if (result.MatchedCount == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<TaskItem>> DeleteTaskAsync([FromRoute] string id)
+        {
+            var filter = Builders<TaskItem>.Filter.Eq(item => item.Id, id);
+            var result = await _context.Tasks.DeleteOneAsync(filter);
+            if (result.DeletedCount == 0)
+            {
+                return NotFound();
+            }
+            return Ok();
+        }
+
     }
 }

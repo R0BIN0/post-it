@@ -1,0 +1,22 @@
+.deleteTaskDialog-content {
+  padding: 1rem 2rem;
+}
+
+.deleteTaskDialog-content p {
+  color: #740e0e;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.deleteTaskDialog-footer {
+  margin-top: 2rem;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.deleteTaskDialog-footer-btns-container {
+  width: 190px;
+  display: flex;
+  justify-content: space-between;
+}

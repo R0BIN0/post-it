@@ -12,5 +12,9 @@ export const useTask = (props: ITask) => {
     dispatchCtx(setDialog({ isOpen: IDialogs.TASK, data: props }));
   }, [props]);
 
-  return { handleEdit };
+  const handleDelete = useCallback(() => {
+    dispatchCtx(setDialog({ isOpen: IDialogs.TASK_DELETE, data: { id: props.id, title: props.title } }));
+  }, [props.id, props.title]);
+
+  return { handleEdit, handleDelete };
 };

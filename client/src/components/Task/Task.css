@@ -54,6 +54,10 @@
   border: 1px solid #d83030;
 }
 
+.task-button-delete svg path {
+  fill: #d83030;
+}
+
 .task-button-delete:hover {
   background: rgba(216, 48, 48, 0.2);
 }

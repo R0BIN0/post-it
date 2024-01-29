@@ -11,7 +11,7 @@
 }
 
 .dialogBanner-container[data-alert~="true"] {
-  background-color: rgb(255, 112, 112, 0.1);
+  background-color: rgb(206, 14, 14);
 }
 
 .dialogBanner-left {
@@ -29,7 +29,7 @@
 }
 
 .dialogBanner-container[data-alert~="true"] .dialogBanner-left svg path {
-  stroke: #ff7171;
+  stroke: #ffffff;
 }
 
 .dialogBanner-left p {
@@ -38,7 +38,7 @@
 }
 
 .dialogBanner-container[data-alert~="true"] .dialogBanner-left p {
-  color: #ff7171;
+  color: #ffffff;
 }
 
 .dialogBanner-right button {
