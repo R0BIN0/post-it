@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
 import { ZodError } from "zod";
+import { fromZodError } from "zod-validation-error";
 
 const defaultErrorMessage = "Une erreur est survenue";
 
@@ -16,7 +17,7 @@ export const tryCatch = (callback: Function) => async (data?: unknown) => {
 export const catchError = (err: any): string => {
   let error: string = "";
   if (err instanceof ZodError) {
-    error = err.errors[0].message;
+    error = fromZodError(err).toString();
   } else if (err.response) {
     error = err.response.data.error;
   } else if (err.request) {

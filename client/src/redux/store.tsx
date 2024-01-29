@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import dialogReducer from "./reducers/dialogReducer";
+import bannerReducer from "./reducers/bannerReducer";
 
 const rootReducer = {
   dialog: dialogReducer,
+  banner: bannerReducer,
 };
 
 export const initStore = () => {
