@@ -10,7 +10,7 @@ const NoTask = () => {
     <div className="noTask-container">
       <Information />
       <p>Vous n'avez pas encore de tâche. Vous pouvez en créer une directement en cliquant juste en dessous</p>
-      <Button title={"Créer une tâche"} onClick={logic.handleCreateTask} />
+      <Button type="button" title={"Créer une tâche"} onClick={logic.handleCreateTask} />
     </div>
   );
 };
