@@ -21,20 +21,42 @@ namespace TaskApi.Controllers
         [HttpGet]
         public async Task<ActionResult<List<TaskItem>>> GetAllTasks()
         {
-            var filter = Builders<TaskItem>.Filter.Empty;
-            var taskItems = await _context.Tasks.Find(filter).ToListAsync();
-            return taskItems;
+            try
+            {
+                var filter = Builders<TaskItem>.Filter.Empty;
+                var taskItems = await _context.Tasks.Find(filter).ToListAsync();
+                return taskItems;
+            }
+            catch (MongoException ex)
+            {
+                return StatusCode(500, new { Error = "Impossible d'établir la connexion avec la Base de données." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Error = "Une erreur inattendue s'est produite." });
+            }
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<TaskItem>> GetTask(string id)
         {
-            var taskItem = await _context.Tasks.Find(t => t.Id == id).FirstOrDefaultAsync();
-            if (taskItem == null)
+            try
             {
-                return NotFound();
+                var taskItem = await _context.Tasks.Find(t => t.Id == id).FirstOrDefaultAsync();
+                if (taskItem == null)
+                {
+                    return NotFound(new { Error = "Tâche non trouvée." });
+                }
+                return taskItem;
             }
-            return taskItem;
+            catch (MongoException ex)
+            {
+                return StatusCode(500, new { Error = "Impossible d'établir la connexion avec la Base de données." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Error = "Une erreur inattendue s'est produite." });
+            }
         }
 
         [HttpPost]
@@ -42,15 +64,26 @@ namespace TaskApi.Controllers
         [ProducesResponseType(typeof(void), StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> CreateTaskAsync([FromBody] TaskItemDTO taskDTO)
         {
-            var taskItem = new TaskItem
+            try
             {
-                Title = taskDTO.Title,
-                Description = taskDTO.Description,
-                Color = taskDTO.Color
-            };
+                var taskItem = new TaskItem
+                {
+                    Title = taskDTO.Title,
+                    Description = taskDTO.Description,
+                    Color = taskDTO.Color
+                };
 
-            await _context.Tasks.InsertOneAsync(taskItem);
-            return CreatedAtAction(nameof(GetTask), new { id = taskItem.Id }, taskItem);
+                await _context.Tasks.InsertOneAsync(taskItem);
+                return CreatedAtAction(nameof(GetTask), new { id = taskItem.Id }, taskItem);
+            }
+            catch (MongoException ex)
+            {
+                return StatusCode(500, new { Error = "Impossible d'établir la connexion avec la Base de données." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Error = "Une erreur inattendue s'est produite." });
+            }
         }
 
         [HttpPut("{id}")]
@@ -59,33 +92,54 @@ namespace TaskApi.Controllers
         [ProducesResponseType(typeof(void), StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> UpdateTaskAsync([FromRoute] string id, [FromBody] TaskItem task)
         {
-            var filter = Builders<TaskItem>.Filter.Eq(t => t.Id, id);
-            var update = Builders<TaskItem>.Update
-                .Set(t => t.Title, task.Title)
-                .Set(t => t.Description, task.Description)
-                .Set(t => t.Color, task.Color);
-
-            var result = await _context.Tasks.UpdateOneAsync(filter, update);
-
-            if (result.MatchedCount == 0)
+            try
             {
-                return NotFound();
-            }
+                var filter = Builders<TaskItem>.Filter.Eq(t => t.Id, id);
+                var update = Builders<TaskItem>.Update
+                    .Set(t => t.Title, task.Title)
+                    .Set(t => t.Description, task.Description)
+                    .Set(t => t.Color, task.Color);
 
-            return Ok();
+                var result = await _context.Tasks.UpdateOneAsync(filter, update);
+
+                if (result.MatchedCount == 0)
+                {
+                    return NotFound(new { Error = "Tâche non trouvée." });
+                }
+
+                return Ok();
+            }
+            catch (MongoException ex)
+            {
+                return StatusCode(500, new { Error = "Impossible d'établir la connexion avec la Base de données." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Error = "Une erreur inattendue s'est produite." });
+            }
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<TaskItem>> DeleteTaskAsync([FromRoute] string id)
         {
-            var filter = Builders<TaskItem>.Filter.Eq(item => item.Id, id);
-            var result = await _context.Tasks.DeleteOneAsync(filter);
-            if (result.DeletedCount == 0)
+            try
             {
-                return NotFound();
+                var filter = Builders<TaskItem>.Filter.Eq(item => item.Id, id);
+                var result = await _context.Tasks.DeleteOneAsync(filter);
+                if (result.DeletedCount == 0)
+                {
+                    return NotFound(new { Error = "Tâche non trouvée." });
+                }
+                return Ok();
             }
-            return Ok();
+            catch (MongoException ex)
+            {
+                return StatusCode(500, new { Error = "Impossible d'établir la connexion avec la Base de données." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Error = "Une erreur inattendue s'est produite." });
+            }
         }
-
     }
 }
